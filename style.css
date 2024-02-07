@@ -48,3 +48,26 @@ body {
     outline: none;
     cursor: pointer;
 }
+
+.button-zero {
+    grid-column: span 2;
+}
+
+.bt-gray {
+    background-color: #585858;
+}
+
+.bt-gray-light {
+    background-color: #747474;
+}
+
+button:active {
+    opacity: 0.9;
+}
+
+.bt-orange {
+    background-color: #f2a43b;
+}
+
+
+
