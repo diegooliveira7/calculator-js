@@ -22,7 +22,6 @@ function addDigit(buttonText){
         currentNumber += buttonText;
         return this.updateResult();
     }
-
     currentNumber = buttonText;
     updateResult();
 }
