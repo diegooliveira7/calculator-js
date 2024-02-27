@@ -43,13 +43,13 @@ function calculator() {
             currentNumber = parseInt(firstNumber) + parseInt(currentNumber);
             break;
         case "-":
-            currentNumber = firstNumber - currentNumber;
+            currentNumber = parseInt(firstNumber) - parseInt(currentNumber);
             break;
         case "x":
-            currentNumber = firstNumber * currentNumber;
+            currentNumber = parseInt(firstNumber) * parseInt(currentNumber);
             break;
         case "/":
-            currentNumber = firstNumber / currentNumber;
+            currentNumber = parseInt(firstNumber) / parseInt(currentNumber);
             break;
         default:
             return;
@@ -64,7 +64,7 @@ buttons.forEach((button) => {
         const buttonText = button.innerText;
         if (/^[0-9,]+$/.test(buttonText)) {
             addDigit(buttonText);
-        } else if (["+", "-", "×", "÷"].includes(buttonText)) {
+        } else if (["+", "-", "x", "/"].includes(buttonText)) {
             setOperator(buttonText);
         } else if (["="].includes(buttonText)) {
             if (operator && currentNumber && firstNumber) this.calculator();
