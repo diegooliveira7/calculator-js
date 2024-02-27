@@ -13,7 +13,7 @@ function updateResult() {
 }
 
 function addDigit(buttonText){
-    if ((buttonText === ',')) return;
+    if ((buttonText === ',') && currentNumber.includes(",")) return;
 
     if (currentNumber && !firstNumber) {
         currentNumber += buttonText;
@@ -38,6 +38,8 @@ function setOperator(buttonText) {
 }
 
 function calculator() {
+    firstNumber = firstNumber.toString().replace(",", ".");
+    currentNumber = currentNumber.replace(",", ".");
     switch (this.operator) {
         case "+":
             currentNumber = parseFloat(firstNumber) + parseFloat(currentNumber);
@@ -57,6 +59,21 @@ function calculator() {
     this.updateResult();
     firstNumber = currentNumber;
     operator = null;
+}
+
+function percentage() {
+    let result = parseFloat(currentNumber) / 100;
+
+    if (["+", "-"].includes(operator)) {
+        result = result * (firstOperand || 1);
+    }
+
+    if (result.toString().split(".")[1]?.length > 5) {
+        result = result.toFixed(5).toString();
+    }
+
+    currentNumber = result.toString();
+    this.updateResult();
 }
 
 buttons.forEach((button) => {
@@ -79,6 +96,8 @@ buttons.forEach((button) => {
                 currentNumber = currentNumber * (-1);
             }
             this.updateResult();
+        } else if ("%".includes(buttonText)) {
+            this.percentage();
         }
     });
 });
