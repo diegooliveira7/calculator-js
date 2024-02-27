@@ -9,7 +9,7 @@ let restart = false;
 let verifi = false;
 
 function updateResult() {
-    result.innerText = currentNumber.toString().replace(".", ",");
+    result.innerText = currentNumber == "" ? "0" : currentNumber.toString().replace(".", ",") ;
 }
 
 function addDigit(buttonText){
@@ -40,16 +40,16 @@ function setOperator(buttonText) {
 function calculator() {
     switch (this.operator) {
         case "+":
-            currentNumber = parseInt(firstNumber) + parseInt(currentNumber);
+            currentNumber = parseFloat(firstNumber) + parseFloat(currentNumber);
             break;
         case "-":
-            currentNumber = parseInt(firstNumber) - parseInt(currentNumber);
+            currentNumber = parseFloat(firstNumber) - parseFloat(currentNumber);
             break;
         case "x":
-            currentNumber = parseInt(firstNumber) * parseInt(currentNumber);
+            currentNumber = parseFloat(firstNumber) * parseFloat(currentNumber);
             break;
         case "/":
-            currentNumber = parseInt(firstNumber) / parseInt(currentNumber);
+            currentNumber = parseFloat(firstNumber) / parseFloat(currentNumber);
             break;
         default:
             return;
@@ -68,6 +68,17 @@ buttons.forEach((button) => {
             setOperator(buttonText);
         } else if (["="].includes(buttonText)) {
             if (operator && currentNumber && firstNumber) this.calculator();
+        } else if (["C"].includes(buttonText)) {
+            currentNumber = "";
+            firstNumber = "";
+            firstOperand = null;
+            operator = null;
+            this.updateResult();
+        } else if ("±".includes(buttonText)) {
+            if (currentNumber) {
+                currentNumber = currentNumber * (-1);
+            }
+            this.updateResult();
         }
     });
 });
